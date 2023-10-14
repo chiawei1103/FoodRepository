@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct AddFood: View {
+    @ObservedObject var foodListViewModel: FoodListViewModel
     @State var name: String = ""
     @State var expirationDate = ""
     @State var quantity: String = ""
     @State var unit: String = ""
+    @State var barcode: String = ""
     var body: some View {
         VStack(spacing: 20) {
             HStack(alignment: .top) {
@@ -61,6 +63,14 @@ struct AddFood: View {
             
             Button(action: {
                 print("Save")
+                let food = FoodCoreData(id: UUID(),
+                                        barcode: barcode, name: name, expirationDate: Date.now, purchasedDate: Date.now, quantity: Int64(quantity) ?? 0, unit: unit)
+                do {
+                    try foodListViewModel.addNewFood(food: food)
+                    foodListViewModel.isSheetPresented.toggle()
+                } catch {
+                    print(error)
+                }
             }, label: {
                 Text("Save")
                     .fontWeight(.semibold)
@@ -85,7 +95,7 @@ struct AddFood: View {
 }
 
 #Preview {
-    AddFood()
+    AddFood(foodListViewModel: FoodListViewModel())
 }
 
 struct AddFoodTextField: View {

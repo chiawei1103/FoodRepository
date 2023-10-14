@@ -35,6 +35,7 @@
 		0215A5232AD9800A00D7AA22 /* AddFood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0215A5222AD9800A00D7AA22 /* AddFood.swift */; };
 		0215A5262AD9D27D00D7AA22 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0215A5252AD9D27D00D7AA22 /* CoreDataManager.swift */; };
 		0215A5282AD9D59300D7AA22 /* FoodCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0215A5272AD9D59300D7AA22 /* FoodCoreData.swift */; };
+		0215A52E2AD9E79300D7AA22 /* FoodListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0215A52D2AD9E79300D7AA22 /* FoodListViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +87,7 @@
 		0215A5222AD9800A00D7AA22 /* AddFood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFood.swift; sourceTree = "<group>"; };
 		0215A5252AD9D27D00D7AA22 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		0215A5272AD9D59300D7AA22 /* FoodCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCoreData.swift; sourceTree = "<group>"; };
+		0215A52D2AD9E79300D7AA22 /* FoodListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodListViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +226,7 @@
 			children = (
 				0215A5062AD6F10D00D7AA22 /* RecipeViewModel.swift */,
 				0215A5102AD8277B00D7AA22 /* RecipeDetailViewModel.swift */,
+				0215A52D2AD9E79300D7AA22 /* FoodListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -386,6 +389,7 @@
 			files = (
 				0215A4FF2AD6EFC900D7AA22 /* WebService.swift in Sources */,
 				0215A4EE2AD4EBAA00D7AA22 /* FoodListView.swift in Sources */,
+				0215A52E2AD9E79300D7AA22 /* FoodListViewModel.swift in Sources */,
 				0215A4C62AD4E99800D7AA22 /* Persistence.swift in Sources */,
 				0215A4BF2AD4E99400D7AA22 /* ContentView.swift in Sources */,
 				0215A4BD2AD4E99400D7AA22 /* FoodRepositoryApp.swift in Sources */,

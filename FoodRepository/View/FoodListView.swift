@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FoodListView: View {
-    @State var isSheetPresented = false
+    @StateObject var viewModel = FoodListViewModel()
     var body: some View {
         VStack {
             ZStack(alignment: .top) {
@@ -25,7 +25,7 @@ struct FoodListView: View {
                 VStack {
                     Button(action: {
                         print("add new food")
-                        isSheetPresented.toggle()
+                        viewModel.isSheetPresented.toggle()
                     }, label: {
                         HStack(alignment: .center, spacing: 9) {
                             Image(systemName: "plus")
@@ -53,35 +53,51 @@ struct FoodListView: View {
             
             NavigationStack {
                 List {
-                    FoodItem()
-                        .listRowSeparator(.hidden)
-                        .listRowSpacing(6)
-                    FoodItem()
-                        .listRowSeparator(.hidden)
-                        .listRowSpacing(6)
-                    FoodItem()
-                        .listRowSeparator(.hidden)
-                        .listRowSpacing(6)
-                    FoodItem()
-                        .listRowSeparator(.hidden)
-                        .listRowSpacing(6)
-                    FoodItem()
-                        .listRowSeparator(.hidden)
-                        .listRowSpacing(6)
-                    FoodItem()
-                        .listRowSeparator(.hidden)
-                        .listRowSpacing(6)
-                    FoodItem()
-                        .listRowSeparator(.hidden)
-                        .listRowSpacing(6)
+                    if let foodList = viewModel.foodList {
+                        ForEach(foodList) { food in
+                            FoodItem(foodItem: food)
+                                .listRowSeparator(.hidden)
+                                .listRowSpacing(6)
+                                .swipeActions(edge: .trailing) {
+                                    Button(role: .destructive) {
+                                        try? viewModel.deleteFoodItem(food: food)
+                                    } label: {
+                                        Label("Delete", systemImage: "trash")
+                                    }
+                                }
+                        }
+                    }
+                    
+                    
+                    //                    FoodItem()
+                    //                        .listRowSeparator(.hidden)
+                    //                        .listRowSpacing(6)
+                    //                    FoodItem()
+                    //                        .listRowSeparator(.hidden)
+                    //                        .listRowSpacing(6)
+                    //                    FoodItem()
+                    //                        .listRowSeparator(.hidden)
+                    //                        .listRowSpacing(6)
+                    //                    FoodItem()
+                    //                        .listRowSeparator(.hidden)
+                    //                        .listRowSpacing(6)
+                    //                    FoodItem()
+                    //                        .listRowSeparator(.hidden)
+                    //                        .listRowSpacing(6)
+                    //                    FoodItem()
+                    //                        .listRowSeparator(.hidden)
+                    //                        .listRowSpacing(6)
                 }
                 
                 
                 .listStyle(.plain)
             }
         }
-        .sheet(isPresented: $isSheetPresented, content: {
-            AddFood()
+        .onAppear {
+            try? viewModel.fetchFoodList()
+        }
+        .sheet(isPresented: $viewModel.isSheetPresented, content: {
+            AddFood(foodListViewModel: viewModel)
         })
     }
 }

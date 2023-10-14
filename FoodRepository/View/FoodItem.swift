@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct FoodItem: View {
+    @State var foodItem: FoodCoreData
     @State var thumbnail = "🍞"
     @State var itemName = "Bread"
     @State var expirationDate = "10/08"
@@ -26,7 +27,7 @@ struct FoodItem: View {
                 .padding(.leading, 16)
                 .padding(.vertical, 12)
                 
-            Text(itemName)
+            Text(foodItem.name ?? "")
                 .fontWeight(.semibold)
                 .font(.system(size: 16))
                 .foregroundStyle(.neutral90)
@@ -41,7 +42,7 @@ struct FoodItem: View {
                 HStack {
                     Text("Qty")
                     Text(":")
-                    Text("\(quantity) " + "\(unit ?? "")")
+                    Text("\(foodItem.quantity) " + "\(foodItem.unit ?? "")")
                 }
             }
             .foregroundStyle(.neutral40)
@@ -55,5 +56,5 @@ struct FoodItem: View {
 }
 
 #Preview {
-    FoodItem()
+    FoodItem(foodItem: FoodCoreData(id: nil, barcode: nil, name: "Bread", expirationDate: nil, purchasedDate: nil, quantity: 200, unit: "g"))
 }

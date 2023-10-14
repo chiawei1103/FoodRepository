@@ -100,7 +100,7 @@ class RecipeViewModel: ObservableObject {
             }
         }
         
-        var recipe = Recipe(id: idMeal, title: strMeal, ingredients: ingredients,isFavorite: false)
+        let recipe = Recipe(id: idMeal, title: strMeal, ingredients: ingredients,isFavorite: false)
         
         guard let strInstructions = meal["strInstructions"] else { return }
         recipe.instruction = strInstructions

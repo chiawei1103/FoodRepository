@@ -11,6 +11,14 @@ import Foundation
 class FoodListViewModel: ObservableObject {
     @Published var foodList: [FoodCoreData]?
     @Published var isSheetPresented = false
+    @Published var isEditing = false
+    
+    @Published var foodItem: FoodCoreData?
+    @Published var name: String = ""
+    @Published var expirationDate = ""
+    @Published var quantity: String = ""
+    @Published var unit: String = ""
+    @Published var barcode: String = ""
     
     func fetchFoodList() throws {
         Task {
@@ -22,9 +30,16 @@ class FoodListViewModel: ObservableObject {
         }
     }
     
-    func addNewFood(food: FoodCoreData) throws {
+    func addNewFood() throws {
         Task {
             do {
+                let food = FoodCoreData(id: UUID(),
+                                        barcode: barcode,
+                                        name: name,
+                                        expirationDate: Date.now,
+                                        purchasedDate: Date.now,
+                                        quantity: Int64(quantity) ?? 0,
+                                        unit: unit)
                 try await CoreDataManager.shared.addFood(food: food)
                 foodList?.append(food)
             } catch {
@@ -41,6 +56,29 @@ class FoodListViewModel: ObservableObject {
             } catch {
                 print(error)
             }
+        }
+    }
+    
+    func editFoodItem() throws {
+        Task {
+            do {
+                if var food = self.foodItem {
+                    food.name = self.name
+                    food.quantity = Int64(self.quantity) ?? 0
+                    food.unit = self.unit
+                    food.expirationDate = Date.now      //self.expirationDate
+                    try await CoreDataManager.shared.editFoodItem(food: food)
+                    try fetchFoodList()
+//                    if let foodItemIndex = foodList?.firstIndex(where: { $0.id == food.id}) {
+//                        foodList?.remove(at: foodItemIndex)
+//                        foodList?.append(food)
+//                        print(foodList)
+//                    }
+                }
+            } catch {
+                print(error)
+            }
+            
         }
     }
 }

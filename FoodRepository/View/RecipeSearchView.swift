@@ -25,6 +25,8 @@ struct RecipeSearchView: View {
                 VStack {
                     Button(action: {
                         print("show my saved recipes")
+                        try? viewModel.fetchRecipeList()
+                        viewModel.isSheetPresented.toggle()
                     }, label: {
                         HStack(alignment: .center, spacing: 9) {
                             Image(systemName: "bookmark")
@@ -91,7 +93,7 @@ struct RecipeSearchView: View {
                     ForEach(viewModel.recipes) { recipe in
                         ZStack {
                             RecipeItem(recipe: recipe)
-                            NavigationLink(destination: RecipeDetailView(recipe: recipe)) {
+                            NavigationLink(destination: RecipeDetailView(recipeViewModel: viewModel, recipe: recipe)) {
                             }
                             .buttonStyle(PlainButtonStyle())
                             .opacity(0)
@@ -125,6 +127,9 @@ struct RecipeSearchView: View {
                 viewModel.getRandomRecipes()
             }
         }
+        .sheet(isPresented: $viewModel.isSheetPresented, content: {
+            FavoriteRecipeListView(recipeViewModel: viewModel)
+        })
     }
 }
 

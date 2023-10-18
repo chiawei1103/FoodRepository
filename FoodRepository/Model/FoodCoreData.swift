@@ -8,13 +8,13 @@
 import Foundation
 
 struct FoodCoreData: Identifiable {
-    let id: UUID?
-    let barcode: String?
-    let name: String?
-    let expirationDate: Date?
-    let purchasedDate: Date?
-    let quantity: Int64
-    let unit: String?
+    var id: UUID?
+    var barcode: String?
+    var name: String?
+    var expirationDate: Date?
+    var purchasedDate: Date?
+    var quantity: Int64
+    var unit: String?
 }
 
 extension FoodCoreData {

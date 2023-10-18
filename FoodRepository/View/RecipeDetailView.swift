@@ -10,7 +10,9 @@ import AVKit
 
 struct RecipeDetailView: View {
 //    @ObservedObject var recipe: RecipeDetailViewModel
+    @ObservedObject var recipeViewModel: RecipeViewModel
     @State var recipe: Recipe
+    @State var isFavorited: Bool = false
     
     @State var tags = ["Tart", "Baking", "Fruit", "Dessert", "British"]
     @State var instruction = "Preheat the oven to 200C/180C Fan/Gas 6.\r\nPut the biscuits in a large re-sealable freezer bag and bash with a rolling pin into fine crumbs. Melt the butter in a small pan, then add the biscuit crumbs and stir until coated with butter. Tip into the tart tin and, using the back of a spoon, press over the base and sides of the tin to give an even layer. Chill in the fridge while you make the filling.\r\nCream together the butter and sugar until light and fluffy. You can do this in a food processor if you have one. Process for 2-3 minutes. Mix in the eggs, then add the ground almonds and almond extract and blend until well combined.\r\nPeel the apples, and cut thin slices of apple. Do this at the last minute to prevent the apple going brown. Arrange the slices over the biscuit base. Spread the frangipane filling evenly on top. Level the surface and sprinkle with the flaked almonds.\r\nBake for 20-25 minutes until golden-brown and set.\r\nRemove from the oven and leave to cool for 15 minutes. Remove the sides of the tin. An easy way to do this is to stand the tin on a can of beans and push down gently on the edges of the tin.\r\nTransfer the tart, with the tin base attached, to a serving plate. Serve warm with cream, fraiche or ice cream."
@@ -63,8 +65,8 @@ struct RecipeDetailView: View {
                 if let tags = recipe.tags {
                     ScrollView(.horizontal) {
                         HStack(spacing: 10) {
-                            ForEach(tags, id: \.self) { tag in
-                                Tag(tagName: tag)
+                            ForEach(tags) { tag in
+                                TagItem(tagName: tag.tag)
                             }
                         }
                         .padding(.leading, 1)
@@ -110,15 +112,43 @@ struct RecipeDetailView: View {
             }
             .scrollIndicators(.hidden)
             .padding(.horizontal, 20)
+            .toolbar(.visible, for: .navigationBar)
+            .toolbar(content: {
+                Button(action: {
+                    recipe.isFavorite.toggle()
+                    recipeViewModel.favoriteRecipe = self.recipe
+                    if let recipeFavoriteList = recipeViewModel.favoriteRecipeList {
+                        if recipeFavoriteList.contains( where: { $0.id == self.recipe.id } ) {
+                            try? recipeViewModel.removeFavoriteItem()
+                        } else {
+                            try? recipeViewModel.addFavorite()
+                        }
+                    }
+                }, label: {
+                    Image(systemName: recipe.isFavorite ? "bookmark.fill" : "bookmark")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .foregroundStyle(.neutral90)
+                        .frame(width: 18, height: 18)
+                        .background {
+                            Circle()
+                                .fill(.white)
+                                .frame(width: 32, height: 32)
+                        }
+                        .shadow(color: Color(.neutral95).opacity(0.15),
+                            radius: 12.5, x: 0, y: 8)
+                })
+                .padding(.trailing, 20)
+            })
         }
     }
 }
 
 #Preview {
-    RecipeDetailView(recipe: Recipe(id: "1234", title: "Apple Pie", ingredients: ["water": "200g", "yellow pepper": "500g"], isFavorite: false))
+    RecipeDetailView(recipeViewModel: RecipeViewModel(webService: WebService()), recipe: Recipe(id: 1234, title: "Apple Pie", ingredients: ["water": "200g", "yellow pepper": "500g"], isFavorite: false))
 }
 
-struct Tag: View {
+struct TagItem: View {
     @State var tagName: String
     var body: some View {
         Text(tagName)

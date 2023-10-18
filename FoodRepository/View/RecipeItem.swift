@@ -50,10 +50,9 @@ struct RecipeItem: View {
             HStack(spacing: 20) {
                 Button(action: {
                     recipe.isFavorite.toggle()
-                    isFavorited.toggle()
                     print("recipe.isFavorite: \(recipe.isFavorite)")
                 }, label: {
-                    Image(systemName: isFavorited ? "bookmark.fill" : "bookmark")
+                    Image(systemName: recipe.isFavorite ? "bookmark.fill" : "bookmark")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .foregroundStyle(.neutral90)
@@ -85,5 +84,5 @@ struct RecipeItem: View {
 }
 
 #Preview {
-    RecipeItem(recipe: Recipe(id: "1234", title: "Recipe1", ingredients: ["water": "200g"], isFavorite: false))
+    RecipeItem(recipe: Recipe(id: 1234, title: "Recipe1", ingredients: ["water": "200g"], isFavorite: false))
 }

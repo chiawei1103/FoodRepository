@@ -32,6 +32,21 @@ struct FoodItem: View {
                 .font(.system(size: 16))
                 .foregroundStyle(.neutral90)
             Spacer()
+            
+//            Image(systemName: "pencil")
+//                .resizable()
+//                .aspectRatio(contentMode: .fit)
+//                .foregroundStyle(.neutral90)
+//                .frame(width: 15, height: 15)
+//                .background {
+//                    Circle()
+//                        .fill(.white)
+//                        .frame(width: 28, height: 28)
+//                }
+//                .shadow(color: Color(.neutral95).opacity(0.15),
+//                    radius: 12.5, x: 0, y: 8)
+//                .padding(.trailing, 16)
+            
             VStack {
                 HStack {
                     Text("Exp")
@@ -47,6 +62,8 @@ struct FoodItem: View {
             }
             .foregroundStyle(.neutral40)
             .padding(.trailing, 16)
+            
+            
         }
         .background {
             Color.neutral10

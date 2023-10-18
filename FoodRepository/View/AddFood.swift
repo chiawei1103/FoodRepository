@@ -22,51 +22,56 @@ struct AddFood: View {
                     .font(.system(size: 24))
                     .foregroundStyle(.neutral90)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.bottom, 15)
+                    .padding(.bottom, 15)
                 
                 Button(action: {
                     print("scanning barcode")
                 }, label: {
-                        Image(systemName: "barcode.viewfinder")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 20, height: 20)
-                            .foregroundStyle(.primary50)
-                            .background {
-                                Circle()
-                                    .fill(.white)
-                                    .frame(width: 32, height: 32)
-                                    .shadow(
-                                        color: Color(red: 0.13, green: 0.13, blue: 0.13)
-                                            .opacity(0.15),
-                                        radius: 12.5,
-                                        x: 0,
-                                        y: 8)
-                            }
+                    Image(systemName: "barcode.viewfinder")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 20, height: 20)
+                        .foregroundStyle(.primary50)
+                        .background {
+                            Circle()
+                                .fill(.white)
+                                .frame(width: 32, height: 32)
+                                .shadow(
+                                    color: Color(red: 0.13, green: 0.13, blue: 0.13)
+                                        .opacity(0.15),
+                                    radius: 12.5,
+                                    x: 0,
+                                    y: 8)
+                        }
                 })
             }
             
-            AddFoodTextField(inputText: $name, promptText: "Food name")
+            AddFoodTextField(inputText: $foodListViewModel.name, promptText: "Food name")
             
             AddFoodTextField(inputText: $expirationDate, promptText: "Expiration Date")
             
-//            DatePicker(selection: $expirationDate, displayedComponents: .date) {
-//                Text("Expiration Date")
-//            }
+            //            DatePicker(selection: $expirationDate, displayedComponents: .date) {
+            //                Text("Expiration Date")
+            //            }
             
             HStack(spacing: 12){
-                AddFoodTextField(inputText: $quantity, promptText: "Quantity")
-                AddFoodTextField(inputText: $unit, promptText: "Unit")
+                AddFoodTextField(inputText: $foodListViewModel.quantity, promptText: "Quantity")
+                AddFoodTextField(inputText: $foodListViewModel.unit, promptText: "Unit")
             }
             
             Spacer()
             
             Button(action: {
                 print("Save")
-                let food = FoodCoreData(id: UUID(),
-                                        barcode: barcode, name: name, expirationDate: Date.now, purchasedDate: Date.now, quantity: Int64(quantity) ?? 0, unit: unit)
+                //                let food = FoodCoreData(id: UUID(),
+                //                                        barcode: barcode, name: name, expirationDate: Date.now, purchasedDate: Date.now, quantity: Int64(quantity) ?? 0, unit: unit)
                 do {
-                    try foodListViewModel.addNewFood(food: food)
+                    if foodListViewModel.foodItem != nil {
+                        try foodListViewModel.editFoodItem()
+                    } else {
+                        try foodListViewModel.addNewFood()
+                    }
+                    
                     foodListViewModel.isSheetPresented.toggle()
                 } catch {
                     print(error)

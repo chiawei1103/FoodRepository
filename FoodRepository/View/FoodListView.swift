@@ -51,7 +51,7 @@ struct FoodListView: View {
             .padding(.top, 20)
             .padding(.bottom, 0)
             
-            NavigationStack {
+//            NavigationStack {
                 List {
                     if let foodList = viewModel.foodList {
                         ForEach(foodList) { food in
@@ -65,33 +65,19 @@ struct FoodListView: View {
                                         Label("Delete", systemImage: "trash")
                                     }
                                 }
+                                .onTapGesture {
+                                    viewModel.name = food.name ?? ""
+                                    viewModel.barcode = food.barcode ?? ""
+                                    viewModel.quantity = String(food.quantity)
+                                    viewModel.unit = food.unit ?? ""
+                                    viewModel.foodItem = food
+                                    viewModel.isSheetPresented.toggle()
+                                }
                         }
                     }
-                    
-                    
-                    //                    FoodItem()
-                    //                        .listRowSeparator(.hidden)
-                    //                        .listRowSpacing(6)
-                    //                    FoodItem()
-                    //                        .listRowSeparator(.hidden)
-                    //                        .listRowSpacing(6)
-                    //                    FoodItem()
-                    //                        .listRowSeparator(.hidden)
-                    //                        .listRowSpacing(6)
-                    //                    FoodItem()
-                    //                        .listRowSeparator(.hidden)
-                    //                        .listRowSpacing(6)
-                    //                    FoodItem()
-                    //                        .listRowSeparator(.hidden)
-                    //                        .listRowSpacing(6)
-                    //                    FoodItem()
-                    //                        .listRowSeparator(.hidden)
-                    //                        .listRowSpacing(6)
                 }
-                
-                
                 .listStyle(.plain)
-            }
+//            }
         }
         .onAppear {
             try? viewModel.fetchFoodList()

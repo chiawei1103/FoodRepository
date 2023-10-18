@@ -17,7 +17,10 @@ enum ViewState {
 class RecipeViewModel: ObservableObject {
     @Published var viewState = ViewState.loading
     @Published var recipes: [Recipe] = []
+    @Published var favoriteRecipeList: [RecipeCoreData]?
+    @Published var favoriteRecipe: Recipe?
     @Published var recipeDetailViewModel: RecipeDetailViewModel?
+    @Published var isSheetPresented = false
     
     let webService: APIImplement
     init(webService: APIImplement) {
@@ -53,6 +56,47 @@ class RecipeViewModel: ObservableObject {
                 print(error)
                 print(error.localizedDescription)
                 self.viewState = .error
+            }
+        }
+    }
+    
+    func addFavorite() throws {
+        Task {
+            do {
+                guard let recipeItem = self.favoriteRecipe else { return }
+                let recipe = RecipeCoreData(id: recipeItem.id, 
+                                            title: recipeItem.title,
+                                            category: recipeItem.category,
+                                            area: recipeItem.area,
+                                            thumbnail: recipeItem.thumbnail,
+                                            video: recipeItem.video,
+                                            instruction: recipeItem.instruction)
+                try await CoreDataManager.shared.addRecipe(recipe: recipe)
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
+    func fetchRecipeList() throws {
+        Task {
+            do {
+                self.favoriteRecipeList = try await CoreDataManager.shared.getRecipes()
+            } catch {
+                print("Fetch Recipe List Failed: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func removeFavoriteItem() throws {
+        Task {
+            do {
+                guard let id = self.favoriteRecipe?.id else { return }
+                try await CoreDataManager.shared.deleteRecipe(id: id)
+                self.favoriteRecipeList?.removeAll(where: { $0.id == id })
+                self.isSheetPresented.toggle()
+            } catch {
+                print("Delete recipe item Failed: \(error.localizedDescription)")
             }
         }
     }
@@ -100,7 +144,7 @@ class RecipeViewModel: ObservableObject {
             }
         }
         
-        let recipe = Recipe(id: idMeal, title: strMeal, ingredients: ingredients,isFavorite: false)
+        let recipe = Recipe(id: Int64(idMeal) ?? 0, title: strMeal, ingredients: ingredients,isFavorite: false)
         
         guard let strInstructions = meal["strInstructions"] else { return }
         recipe.instruction = strInstructions
@@ -108,13 +152,15 @@ class RecipeViewModel: ObservableObject {
         guard let strCategory = meal["strCategory"] else { return }
         recipe.category = strCategory
         if let category = recipe.category {
-            recipe.tags?.append(category)
+            let tag = Tag(id: UUID(), tag: category)
+            recipe.tags?.append(tag)
         }
         
         guard let strArea = meal["strArea"] else { return }
         recipe.area = strArea
         if let area = recipe.area {
-            recipe.tags?.append(area)
+            let tag = Tag(id: UUID(), tag: area)
+            recipe.tags?.append(tag)
         }
         
         guard let strMealThumb = meal["strMealThumb"] else { return }
@@ -122,7 +168,11 @@ class RecipeViewModel: ObservableObject {
         
         guard let strTags = meal["strTags"] else { return }
         if let strTags = strTags {
-            let tags = strTags.components(separatedBy: ",")
+            let tagStr = strTags.components(separatedBy: ",")
+            var tags: [Tag] = []
+            tagStr.forEach { tag in
+                tags.append(Tag(id: UUID(), tag: tag))
+            }
             recipe.tags = tags
         }
         

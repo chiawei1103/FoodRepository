@@ -36,6 +36,7 @@
 		0215A5262AD9D27D00D7AA22 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0215A5252AD9D27D00D7AA22 /* CoreDataManager.swift */; };
 		0215A5282AD9D59300D7AA22 /* FoodCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0215A5272AD9D59300D7AA22 /* FoodCoreData.swift */; };
 		0215A52E2AD9E79300D7AA22 /* FoodListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0215A52D2AD9E79300D7AA22 /* FoodListViewModel.swift */; };
+		02E9CFB82ADF15D500D1B71A /* FavoriteRecipeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E9CFB72ADF15D500D1B71A /* FavoriteRecipeListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +89,7 @@
 		0215A5252AD9D27D00D7AA22 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		0215A5272AD9D59300D7AA22 /* FoodCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCoreData.swift; sourceTree = "<group>"; };
 		0215A52D2AD9E79300D7AA22 /* FoodListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodListViewModel.swift; sourceTree = "<group>"; };
+		02E9CFB72ADF15D500D1B71A /* FavoriteRecipeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRecipeListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +194,7 @@
 				0215A50E2AD820DA00D7AA22 /* RecipeDetailView.swift */,
 				0215A51E2AD8D38400D7AA22 /* Ingredient.swift */,
 				0215A5222AD9800A00D7AA22 /* AddFood.swift */,
+				02E9CFB72ADF15D500D1B71A /* FavoriteRecipeListView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -399,6 +402,7 @@
 				0215A5212AD972B700D7AA22 /* Barcode.swift in Sources */,
 				0215A50D2AD6F23900D7AA22 /* Constants.swift in Sources */,
 				0215A5262AD9D27D00D7AA22 /* CoreDataManager.swift in Sources */,
+				02E9CFB82ADF15D500D1B71A /* FavoriteRecipeListView.swift in Sources */,
 				0215A51F2AD8D38400D7AA22 /* Ingredient.swift in Sources */,
 				0215A4F02AD4EBD200D7AA22 /* RecipeSearchView.swift in Sources */,
 				0215A4F42AD4F09900D7AA22 /* ViewExtension.swift in Sources */,

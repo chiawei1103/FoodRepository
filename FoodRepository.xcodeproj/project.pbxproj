@@ -37,6 +37,7 @@
 		0215A5282AD9D59300D7AA22 /* FoodCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0215A5272AD9D59300D7AA22 /* FoodCoreData.swift */; };
 		0215A52E2AD9E79300D7AA22 /* FoodListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0215A52D2AD9E79300D7AA22 /* FoodListViewModel.swift */; };
 		02E9CFB82ADF15D500D1B71A /* FavoriteRecipeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E9CFB72ADF15D500D1B71A /* FavoriteRecipeListView.swift */; };
+		02E9CFBA2ADF88FC00D1B71A /* BarcodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E9CFB92ADF88FC00D1B71A /* BarcodeScannerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +91,7 @@
 		0215A5272AD9D59300D7AA22 /* FoodCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCoreData.swift; sourceTree = "<group>"; };
 		0215A52D2AD9E79300D7AA22 /* FoodListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodListViewModel.swift; sourceTree = "<group>"; };
 		02E9CFB72ADF15D500D1B71A /* FavoriteRecipeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRecipeListView.swift; sourceTree = "<group>"; };
+		02E9CFB92ADF88FC00D1B71A /* BarcodeScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeScannerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +197,7 @@
 				0215A51E2AD8D38400D7AA22 /* Ingredient.swift */,
 				0215A5222AD9800A00D7AA22 /* AddFood.swift */,
 				02E9CFB72ADF15D500D1B71A /* FavoriteRecipeListView.swift */,
+				02E9CFB92ADF88FC00D1B71A /* BarcodeScannerView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -398,6 +401,7 @@
 				0215A4BD2AD4E99400D7AA22 /* FoodRepositoryApp.swift in Sources */,
 				0215A5112AD8277B00D7AA22 /* RecipeDetailViewModel.swift in Sources */,
 				0215A4F82AD630E300D7AA22 /* FoodItem.swift in Sources */,
+				02E9CFBA2ADF88FC00D1B71A /* BarcodeScannerView.swift in Sources */,
 				0215A4EC2AD4EA4300D7AA22 /* MainView.swift in Sources */,
 				0215A5212AD972B700D7AA22 /* Barcode.swift in Sources */,
 				0215A50D2AD6F23900D7AA22 /* Constants.swift in Sources */,
@@ -581,11 +585,13 @@
 				DEVELOPMENT_TEAM = WQ64764U9V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "For barcode scanning";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -610,11 +616,13 @@
 				DEVELOPMENT_TEAM = WQ64764U9V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "For barcode scanning";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

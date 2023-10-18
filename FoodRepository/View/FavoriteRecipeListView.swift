@@ -53,6 +53,7 @@ struct FavoriteRecipeListView: View {
                 }
             }
         }
+        .presentationDragIndicator(.visible)
     }
 }
 

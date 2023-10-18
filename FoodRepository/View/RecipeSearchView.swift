@@ -63,12 +63,15 @@ struct RecipeSearchView: View {
                           text: $query,
                           prompt:
                             Text("Search recipes")
-                                .foregroundStyle(.neutral30)
+                                .foregroundColor(.neutral30)
                 )
-                .onChange(of: query, {
-                    print("RecipeView: \(query)")
-                    viewModel.searchRecipes(query: query)
-                })
+                .onChange(of: query){ newquery in
+                    print(newquery)
+                    viewModel.searchRecipes(query: newquery)
+                }
+//                .onChange(of: query, {
+//                    viewModel.searchRecipes(query: query)
+//                })
                 .fontWeight(.regular)
                 .foregroundStyle(.neutral90)
                 .font(.system(size: 16))
@@ -98,11 +101,6 @@ struct RecipeSearchView: View {
                             .buttonStyle(PlainButtonStyle())
                             .opacity(0)
                         }
-//                        .onAppear {
-//                            let recipeDetailViewModel = RecipeDetailViewModel()
-//                            recipeDetailViewModel.data = recipe
-//                            viewModel.recipeDetailViewModel = recipeDetailViewModel
-//                        }
                         .listRowSeparator(.hidden)
                         .listRowSpacing(6)
                     }
@@ -120,10 +118,10 @@ struct RecipeSearchView: View {
                         }
                       }
             }
-            
         }
         .onAppear {
-            if query == "" {
+            viewModel.getMainIngredient()
+            if query == "" || viewModel.recipes.count < 10 {
                 viewModel.getRandomRecipes()
             }
         }

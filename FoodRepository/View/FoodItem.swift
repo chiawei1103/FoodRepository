@@ -10,10 +10,6 @@ import SwiftUI
 struct FoodItem: View {
     @State var foodItem: FoodCoreData
     @State var thumbnail = "🍞"
-    @State var itemName = "Bread"
-    @State var expirationDate = "10/08"
-    @State var quantity = "200"
-    @State var unit: String? = "g"
     var body: some View {
         HStack {
             Rectangle()
@@ -33,25 +29,11 @@ struct FoodItem: View {
                 .foregroundStyle(.neutral90)
             Spacer()
             
-//            Image(systemName: "pencil")
-//                .resizable()
-//                .aspectRatio(contentMode: .fit)
-//                .foregroundStyle(.neutral90)
-//                .frame(width: 15, height: 15)
-//                .background {
-//                    Circle()
-//                        .fill(.white)
-//                        .frame(width: 28, height: 28)
-//                }
-//                .shadow(color: Color(.neutral95).opacity(0.15),
-//                    radius: 12.5, x: 0, y: 8)
-//                .padding(.trailing, 16)
-            
             VStack {
                 HStack {
                     Text("Exp")
                     Text(":")
-                    Text(expirationDate)
+                    Text("\(foodItem.expirationDate?.formatted(.dateTime.day(.twoDigits).month(.twoDigits)) ?? "")")
                 }
                 
                 HStack {

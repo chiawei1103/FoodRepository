@@ -27,6 +27,45 @@ class RecipeViewModel: ObservableObject {
         self.webService = webService
     }
     
+    func getMainIngredient() {
+        Task {
+            do {
+                let foodRepository = try await CoreDataManager.shared.getFoods()
+                for food in foodRepository {
+                    filterRecipesByIngredient(ingredient: food.name ?? "")
+                }
+                
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
+    func filterRecipesByIngredient(ingredient: String) {
+        let param = URLQueryItem(name: "i", value: ingredient)
+        Task {
+            let networkRequest = NetworkRequest(baseUrl: Constants.baseIngredientRecipeUrl, path: "", params: [param], type: .GET, headers: [:])
+            do {
+                let result = try await webService.fetchData(request: networkRequest, modelType: RawRecipes.self)
+                
+                if let rawMeals = result?.meals {
+                    for rawRecipe in rawMeals {
+                        parsing(meal: rawRecipe) { recipe in
+                            self.recipes.append(recipe)
+                        }
+                    }
+                    self.viewState = .loaded
+                } else {
+                    self.viewState = .error
+                }
+            } catch {
+                print(error)
+                print(error.localizedDescription)
+                self.viewState = .error
+            }
+        }
+    }
+    
     func searchRecipes(query: String) {
         recipes = []
         let params: URLQueryItem = {
@@ -51,7 +90,6 @@ class RecipeViewModel: ObservableObject {
                 } else {
                     self.viewState = .error
                 }
-                
             } catch {
                 print(error)
                 print(error.localizedDescription)
@@ -64,7 +102,7 @@ class RecipeViewModel: ObservableObject {
         Task {
             do {
                 guard let recipeItem = self.favoriteRecipe else { return }
-                let recipe = RecipeCoreData(id: recipeItem.id, 
+                let recipe = RecipeCoreData(id: recipeItem.id,
                                             title: recipeItem.title,
                                             category: recipeItem.category,
                                             area: recipeItem.area,

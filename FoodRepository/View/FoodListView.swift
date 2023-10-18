@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FoodListView: View {
-    @StateObject var viewModel = FoodListViewModel()
+    @StateObject var viewModel = FoodListViewModel(webService: WebService())
     var body: some View {
         VStack {
             ZStack(alignment: .top) {
@@ -51,33 +51,32 @@ struct FoodListView: View {
             .padding(.top, 20)
             .padding(.bottom, 0)
             
-//            NavigationStack {
-                List {
-                    if let foodList = viewModel.foodList {
-                        ForEach(foodList) { food in
-                            FoodItem(foodItem: food)
-                                .listRowSeparator(.hidden)
-                                .listRowSpacing(6)
-                                .swipeActions(edge: .trailing) {
-                                    Button(role: .destructive) {
-                                        try? viewModel.deleteFoodItem(food: food)
-                                    } label: {
-                                        Label("Delete", systemImage: "trash")
-                                    }
+            List {
+                if let foodList = viewModel.foodList {
+                    ForEach(foodList) { food in
+                        FoodItem(foodItem: food)
+                            .listRowSeparator(.hidden)
+                            .listRowSpacing(6)
+                            .swipeActions(edge: .trailing) {
+                                Button(role: .destructive) {
+                                    try? viewModel.deleteFoodItem(food: food)
+                                } label: {
+                                    Label("Delete", systemImage: "trash")
                                 }
-                                .onTapGesture {
-                                    viewModel.name = food.name ?? ""
-                                    viewModel.barcode = food.barcode ?? ""
-                                    viewModel.quantity = String(food.quantity)
-                                    viewModel.unit = food.unit ?? ""
-                                    viewModel.foodItem = food
-                                    viewModel.isSheetPresented.toggle()
-                                }
-                        }
+                            }
+                            .onTapGesture {
+                                viewModel.name = food.name ?? ""
+                                viewModel.barcode = food.barcode ?? ""
+                                viewModel.quantity = String(food.quantity)
+                                viewModel.unit = food.unit ?? ""
+                                viewModel.expirationDate = food.expirationDate ?? Date.now
+                                viewModel.foodItem = food
+                                viewModel.isSheetPresented.toggle()
+                            }
                     }
                 }
-                .listStyle(.plain)
-//            }
+            }
+            .listStyle(.plain)
         }
         .onAppear {
             try? viewModel.fetchFoodList()

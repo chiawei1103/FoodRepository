@@ -81,9 +81,6 @@ extension RecipeCoreData {
     }
     
     func convertingToRecipe() -> Recipe {
-        let ingredient = self.ingredients
-        print("In: \(ingredient)")
-        print("tag: \(self.tags)")
         let recipe = Recipe(id: self.id,
                             title: self.title ?? "",
                             ingredients: ["ingredient" : "measure"],

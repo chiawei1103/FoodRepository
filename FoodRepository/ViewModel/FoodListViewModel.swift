@@ -8,17 +8,28 @@
 import Foundation
 
 @MainActor
-class FoodListViewModel: ObservableObject {
+protocol BarcodeLookUpDelegate {
+    func barcodeLookup(barcode: String)
+}
+
+@MainActor
+class FoodListViewModel: ObservableObject, BarcodeLookUpDelegate {
+    @Published var viewState = ViewState.loading
     @Published var foodList: [FoodCoreData]?
     @Published var isSheetPresented = false
     @Published var isEditing = false
     
     @Published var foodItem: FoodCoreData?
     @Published var name: String = ""
-    @Published var expirationDate = ""
+    @Published var expirationDate = Date()
     @Published var quantity: String = ""
     @Published var unit: String = ""
     @Published var barcode: String = ""
+    
+    let webService: APIImplement
+    init(webService: APIImplement) {
+        self.webService = webService
+    }
     
     func fetchFoodList() throws {
         Task {
@@ -36,7 +47,7 @@ class FoodListViewModel: ObservableObject {
                 let food = FoodCoreData(id: UUID(),
                                         barcode: barcode,
                                         name: name,
-                                        expirationDate: Date.now,
+                                        expirationDate: expirationDate,
                                         purchasedDate: Date.now,
                                         quantity: Int64(quantity) ?? 0,
                                         unit: unit)
@@ -66,19 +77,43 @@ class FoodListViewModel: ObservableObject {
                     food.name = self.name
                     food.quantity = Int64(self.quantity) ?? 0
                     food.unit = self.unit
-                    food.expirationDate = Date.now      //self.expirationDate
+                    food.expirationDate = self.expirationDate
                     try await CoreDataManager.shared.editFoodItem(food: food)
                     try fetchFoodList()
-//                    if let foodItemIndex = foodList?.firstIndex(where: { $0.id == food.id}) {
-//                        foodList?.remove(at: foodItemIndex)
-//                        foodList?.append(food)
-//                        print(foodList)
-//                    }
+                    name = ""
+                    quantity = ""
+                    unit = ""
+                    expirationDate = Date.now
                 }
             } catch {
                 print(error)
             }
-            
+        }
+    }
+    
+    func barcodeLookup(barcode: String) {
+        print("barcode: \(barcode)")
+        Task {
+            let networkRequest = NetworkRequest(baseUrl: Constants.baseBarcodeUrl, path: "", params: [Constants.apiKey], type: .GET, headers: [:])
+            do {
+                let result = try await webService.fetchData(request: networkRequest, modelType: Barcode.self)
+                
+                if let result = result {
+                    if result.category == "Food" {
+                        self.name = result.title
+                        self.barcode = result.barcode
+                        self.viewState = .loaded
+                    } else {
+                        self.viewState = .error
+                    }
+                } else {
+                    self.viewState = .error
+                }
+            } catch {
+                print(error)
+                print(error.localizedDescription)
+                self.viewState = .error
+            }
         }
     }
 }

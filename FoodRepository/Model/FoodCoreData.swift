@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct FoodCoreData: Identifiable {
+struct FoodCoreData: Identifiable, Hashable {
     var id: UUID?
     var barcode: String?
     var name: String?

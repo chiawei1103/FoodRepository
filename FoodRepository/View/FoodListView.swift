@@ -25,6 +25,10 @@ struct FoodListView: View {
                 VStack {
                     Button(action: {
                         print("add new food")
+                        viewModel.name = ""
+                        viewModel.expirationDate = Date.now
+                        viewModel.quantity = ""
+                        viewModel.unit = ""
                         viewModel.isSheetPresented.toggle()
                     }, label: {
                         HStack(alignment: .center, spacing: 9) {
@@ -52,28 +56,26 @@ struct FoodListView: View {
             .padding(.bottom, 0)
             
             List {
-                if let foodList = viewModel.foodList {
-                    ForEach(foodList) { food in
-                        FoodItem(foodItem: food)
-                            .listRowSeparator(.hidden)
-                            .listRowSpacing(6)
-                            .swipeActions(edge: .trailing) {
-                                Button(role: .destructive) {
-                                    try? viewModel.deleteFoodItem(food: food)
-                                } label: {
-                                    Label("Delete", systemImage: "trash")
-                                }
+                ForEach($viewModel.foodList) { $food in
+                    FoodItem(foodItem: $food)
+                        .listRowSeparator(.hidden)
+                        .listRowSpacing(6)
+                        .swipeActions(edge: .trailing) {
+                            Button(role: .destructive) {
+                                try? viewModel.deleteFoodItem(food: food)
+                            } label: {
+                                Label("Delete", systemImage: "trash")
                             }
-                            .onTapGesture {
-                                viewModel.name = food.name ?? ""
-                                viewModel.barcode = food.barcode ?? ""
-                                viewModel.quantity = String(food.quantity)
-                                viewModel.unit = food.unit ?? ""
-                                viewModel.expirationDate = food.expirationDate ?? Date.now
-                                viewModel.foodItem = food
-                                viewModel.isSheetPresented.toggle()
-                            }
-                    }
+                        }
+                        .onTapGesture {
+                            viewModel.name = food.name ?? ""
+                            viewModel.barcode = food.barcode ?? ""
+                            viewModel.quantity = String(food.quantity)
+                            viewModel.unit = food.unit ?? ""
+                            viewModel.expirationDate = food.expirationDate ?? Date.now
+                            viewModel.foodItem = food
+                            viewModel.isSheetPresented.toggle()
+                        }
                 }
             }
             .listStyle(.plain)

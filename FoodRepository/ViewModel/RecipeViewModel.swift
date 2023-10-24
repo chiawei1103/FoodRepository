@@ -17,9 +17,8 @@ enum ViewState {
 class RecipeViewModel: ObservableObject {
     @Published var viewState = ViewState.loading
     @Published var recipes: [Recipe] = []
-    @Published var favoriteRecipeList: [RecipeCoreData]?
+    @Published var favoriteRecipeList: [RecipeCoreData] = []
     @Published var favoriteRecipe: Recipe?
-    @Published var recipeDetailViewModel: RecipeDetailViewModel?
     @Published var isSheetPresented = false
     
     let webService: APIImplement
@@ -34,7 +33,6 @@ class RecipeViewModel: ObservableObject {
                 for food in foodRepository {
                     filterRecipesByIngredient(ingredient: food.name ?? "")
                 }
-                
             } catch {
                 print(error)
             }
@@ -109,7 +107,10 @@ class RecipeViewModel: ObservableObject {
                                             thumbnail: recipeItem.thumbnail,
                                             video: recipeItem.video,
                                             instruction: recipeItem.instruction)
-                try await CoreDataManager.shared.addRecipe(recipe: recipe)
+                if !favoriteRecipeList.contains(where: { $0.id == recipe.id }) {
+                    try await CoreDataManager.shared.addRecipe(recipe: recipe)
+                    self.favoriteRecipeList.append(recipe)
+                }
             } catch {
                 print(error)
             }
@@ -131,7 +132,7 @@ class RecipeViewModel: ObservableObject {
             do {
                 guard let id = self.favoriteRecipe?.id else { return }
                 try await CoreDataManager.shared.deleteRecipe(id: id)
-                self.favoriteRecipeList?.removeAll(where: { $0.id == id })
+                self.favoriteRecipeList.removeAll(where: { $0.id == id })
                 self.isSheetPresented.toggle()
             } catch {
                 print("Delete recipe item Failed: \(error.localizedDescription)")

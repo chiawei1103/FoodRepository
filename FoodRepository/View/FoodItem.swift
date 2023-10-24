@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FoodItem: View {
-    @State var foodItem: FoodCoreData
+    @Binding var foodItem: FoodCoreData
     @State var thumbnail = "🍞"
     var body: some View {
         HStack {
@@ -55,5 +55,5 @@ struct FoodItem: View {
 }
 
 #Preview {
-    FoodItem(foodItem: FoodCoreData(id: nil, barcode: nil, name: "Bread", expirationDate: nil, purchasedDate: nil, quantity: 200, unit: "g"))
+    FoodItem(foodItem: .constant(FoodCoreData(id: nil, barcode: nil, name: "Bread", expirationDate: nil, purchasedDate: nil, quantity: 200, unit: "g")))
 }

@@ -15,7 +15,7 @@ protocol BarcodeLookUpDelegate {
 @MainActor
 class FoodListViewModel: ObservableObject, BarcodeLookUpDelegate {
     @Published var viewState = ViewState.loading
-    @Published var foodList: [FoodCoreData]?
+    @Published var foodList: [FoodCoreData] = []
     @Published var isSheetPresented = false
     @Published var isEditing = false
     
@@ -51,8 +51,8 @@ class FoodListViewModel: ObservableObject, BarcodeLookUpDelegate {
                                         purchasedDate: Date.now,
                                         quantity: Int64(quantity) ?? 0,
                                         unit: unit)
+                foodList.append(food)
                 try await CoreDataManager.shared.addFood(food: food)
-                foodList?.append(food)
             } catch {
                 print(error)
             }
@@ -63,7 +63,7 @@ class FoodListViewModel: ObservableObject, BarcodeLookUpDelegate {
         Task {
             do {
                 try await CoreDataManager.shared.deleteFood(id: food.id ?? UUID())
-                foodList?.removeAll(where: { $0.id == food.id })
+                foodList.removeAll(where: { $0.id == food.id })
             } catch {
                 print(error)
             }
@@ -80,10 +80,7 @@ class FoodListViewModel: ObservableObject, BarcodeLookUpDelegate {
                     food.expirationDate = self.expirationDate
                     try await CoreDataManager.shared.editFoodItem(food: food)
                     try fetchFoodList()
-                    name = ""
-                    quantity = ""
-                    unit = ""
-                    expirationDate = Date.now
+                    self.foodItem = nil
                 }
             } catch {
                 print(error)

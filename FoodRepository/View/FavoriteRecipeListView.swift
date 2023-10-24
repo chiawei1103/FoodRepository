@@ -21,9 +21,9 @@ struct FavoriteRecipeListView: View {
                     .padding(.top, 20)
                     .padding(.horizontal, 20)
 
-                if let list = recipeViewModel.favoriteRecipeList {
+                if !recipeViewModel.favoriteRecipeList.isEmpty {
                     List {
-                        ForEach(list) { recipe in
+                        ForEach(recipeViewModel.favoriteRecipeList) { recipe in
                             ZStack {
                                 RecipeItem(recipe: recipe.convertingToRecipe())
                                 NavigationLink(

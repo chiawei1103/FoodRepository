@@ -8,10 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0215A4BD2AD4E99400D7AA22 /* FoodRepositoryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0215A4BC2AD4E99400D7AA22 /* FoodRepositoryApp.swift */; };
-		0215A4BF2AD4E99400D7AA22 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0215A4BE2AD4E99400D7AA22 /* ContentView.swift */; };
 		0215A4C12AD4E99800D7AA22 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0215A4C02AD4E99800D7AA22 /* Assets.xcassets */; };
 		0215A4C42AD4E99800D7AA22 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0215A4C32AD4E99800D7AA22 /* Preview Assets.xcassets */; };
-		0215A4C62AD4E99800D7AA22 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0215A4C52AD4E99800D7AA22 /* Persistence.swift */; };
 		0215A4C92AD4E99800D7AA22 /* FoodRepository.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0215A4C72AD4E99800D7AA22 /* FoodRepository.xcdatamodeld */; };
 		0215A4D32AD4E99800D7AA22 /* FoodRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0215A4D22AD4E99800D7AA22 /* FoodRepositoryTests.swift */; };
 		0215A4DD2AD4E99900D7AA22 /* FoodRepositoryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0215A4DC2AD4E99900D7AA22 /* FoodRepositoryUITests.swift */; };
@@ -29,7 +27,6 @@
 		0215A50A2AD6F21600D7AA22 /* Recipes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0215A5092AD6F21600D7AA22 /* Recipes.swift */; };
 		0215A50D2AD6F23900D7AA22 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0215A50C2AD6F23900D7AA22 /* Constants.swift */; };
 		0215A50F2AD820DA00D7AA22 /* RecipeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0215A50E2AD820DA00D7AA22 /* RecipeDetailView.swift */; };
-		0215A5112AD8277B00D7AA22 /* RecipeDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0215A5102AD8277B00D7AA22 /* RecipeDetailViewModel.swift */; };
 		0215A51F2AD8D38400D7AA22 /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0215A51E2AD8D38400D7AA22 /* Ingredient.swift */; };
 		0215A5212AD972B700D7AA22 /* Barcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0215A5202AD972B700D7AA22 /* Barcode.swift */; };
 		0215A5232AD9800A00D7AA22 /* AddFood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0215A5222AD9800A00D7AA22 /* AddFood.swift */; };
@@ -60,10 +57,8 @@
 /* Begin PBXFileReference section */
 		0215A4B92AD4E99400D7AA22 /* FoodRepository.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodRepository.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0215A4BC2AD4E99400D7AA22 /* FoodRepositoryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodRepositoryApp.swift; sourceTree = "<group>"; };
-		0215A4BE2AD4E99400D7AA22 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		0215A4C02AD4E99800D7AA22 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0215A4C32AD4E99800D7AA22 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		0215A4C52AD4E99800D7AA22 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		0215A4C82AD4E99800D7AA22 /* FoodRepository.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FoodRepository.xcdatamodel; sourceTree = "<group>"; };
 		0215A4CE2AD4E99800D7AA22 /* FoodRepositoryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodRepositoryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0215A4D22AD4E99800D7AA22 /* FoodRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodRepositoryTests.swift; sourceTree = "<group>"; };
@@ -83,7 +78,6 @@
 		0215A5092AD6F21600D7AA22 /* Recipes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipes.swift; sourceTree = "<group>"; };
 		0215A50C2AD6F23900D7AA22 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0215A50E2AD820DA00D7AA22 /* RecipeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailView.swift; sourceTree = "<group>"; };
-		0215A5102AD8277B00D7AA22 /* RecipeDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailViewModel.swift; sourceTree = "<group>"; };
 		0215A51E2AD8D38400D7AA22 /* Ingredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
 		0215A5202AD972B700D7AA22 /* Barcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Barcode.swift; sourceTree = "<group>"; };
 		0215A5222AD9800A00D7AA22 /* AddFood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFood.swift; sourceTree = "<group>"; };
@@ -151,9 +145,7 @@
 				0215A4FA2AD6310F00D7AA22 /* Extension */,
 				0215A4F92AD630F100D7AA22 /* View */,
 				0215A4BC2AD4E99400D7AA22 /* FoodRepositoryApp.swift */,
-				0215A4BE2AD4E99400D7AA22 /* ContentView.swift */,
 				0215A4C02AD4E99800D7AA22 /* Assets.xcassets */,
-				0215A4C52AD4E99800D7AA22 /* Persistence.swift */,
 				0215A4C72AD4E99800D7AA22 /* FoodRepository.xcdatamodeld */,
 				0215A4C22AD4E99800D7AA22 /* Preview Content */,
 			);
@@ -231,7 +223,6 @@
 			isa = PBXGroup;
 			children = (
 				0215A5062AD6F10D00D7AA22 /* RecipeViewModel.swift */,
-				0215A5102AD8277B00D7AA22 /* RecipeDetailViewModel.swift */,
 				0215A52D2AD9E79300D7AA22 /* FoodListViewModel.swift */,
 			);
 			path = ViewModel;
@@ -396,10 +387,7 @@
 				0215A4FF2AD6EFC900D7AA22 /* WebService.swift in Sources */,
 				0215A4EE2AD4EBAA00D7AA22 /* FoodListView.swift in Sources */,
 				0215A52E2AD9E79300D7AA22 /* FoodListViewModel.swift in Sources */,
-				0215A4C62AD4E99800D7AA22 /* Persistence.swift in Sources */,
-				0215A4BF2AD4E99400D7AA22 /* ContentView.swift in Sources */,
 				0215A4BD2AD4E99400D7AA22 /* FoodRepositoryApp.swift in Sources */,
-				0215A5112AD8277B00D7AA22 /* RecipeDetailViewModel.swift in Sources */,
 				0215A4F82AD630E300D7AA22 /* FoodItem.swift in Sources */,
 				02E9CFBA2ADF88FC00D1B71A /* BarcodeScannerView.swift in Sources */,
 				0215A4EC2AD4EA4300D7AA22 /* MainView.swift in Sources */,

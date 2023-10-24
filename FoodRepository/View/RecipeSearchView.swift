@@ -10,7 +10,6 @@ import SwiftUI
 struct RecipeSearchView: View {
     @State var query = ""
     @StateObject var viewModel = RecipeViewModel(webService: WebService())
-//    @StateObject var recipeDetailViewModel = RecipeDetailViewModel()
     var body: some View {
         NavigationStack {
             ZStack(alignment: .top) {
@@ -66,12 +65,8 @@ struct RecipeSearchView: View {
                                 .foregroundColor(.neutral30)
                 )
                 .onChange(of: query){ newquery in
-                    print(newquery)
                     viewModel.searchRecipes(query: newquery)
                 }
-//                .onChange(of: query, {
-//                    viewModel.searchRecipes(query: query)
-//                })
                 .fontWeight(.regular)
                 .foregroundStyle(.neutral90)
                 .font(.system(size: 16))

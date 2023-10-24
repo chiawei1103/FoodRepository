@@ -10,12 +10,13 @@ import VisionKit
 
 @MainActor
 struct BarcodeScannerView: UIViewControllerRepresentable {
+    var delegate: BarcodeLookUpDelegate
     var barcode = "" {
         didSet {
-            delegate?.barcodeLookup(barcode: barcode)
+            delegate.barcodeLookup(barcode: barcode)
         }
     }
-    var delegate: BarcodeLookUpDelegate?
+    
     
 //    static let textDataType: DataScannerViewController.RecognizedDataType = .text(
 //        languages: [
@@ -165,9 +166,10 @@ struct BarcodeScannerView: UIViewControllerRepresentable {
                 let frame = getRoundBoxFrame(item: item)
                 addRoundBoxToItem(frame: frame, text: text.transcript, item: item)
             case .barcode(let barcode):
-                print("Barcode: \(barcode)")
+                if let barcode = barcode.payloadStringValue {
+                    self.parent.barcode = barcode
+                }
                 
-                self.parent.barcode = "\(barcode)"
             @unknown default:
                 print("Should not happen")
             }

@@ -11,7 +11,7 @@ import XCTest
 struct MockWebServie: APIImplement {
     func fetchData<T>(request: Requestable, modelType: T.Type) async throws -> T? where T : Decodable {
         let nutrition = Metanutrition(fat: "", salt: "", fiber: "", energy: "", sodium: "", sugars: "", fat100G: "", fatUnit: "", proteins: "", fatValue: "", salt100G: "", saltUnit: "", fiber100G: "", fiberUnit: "", saltValue: "", energyKcal: "", energy100G: "", energyUnit: "", fiberValue: "", sodium100G: "", sodiumUnit: "", sugars100G: "", sugarsUnit: "", energyValue: "", sodiumValue: "", sugarsValue: "", carbohydrates: "", proteins100G: "", proteinsUnit: "", saturatedFat: "", proteinsValue: "", energyKcal100G: "", energyKcalUnit: "", energyKcalValue: "", carbohydrates100G: "", carbohydratesUnit: "", saturatedFat100G: "", saturatedFatUnit: "", carbohydratesValue: "", saturatedFatValue: "")
-        let mockBarcodeData = Barcode(addedTime: "", modifiedTime: "", title: "", description: "", brand: "", manufacturer: "", msrp: "", category: "", categories: "", stores: "", barcode: "", success: true, timestamp: 0, images: "", metanutrition: nutrition)
+        let mockBarcodeData = Barcode(addedTime: "", modifiedTime: "", title: "", description: "", brand: "", manufacturer: "", msrp: "", category: "", categories: "", stores: "", barcode: "", success: true, timestamp: 0, images: "")
         return (mockBarcodeData as! T)
     }
 }
@@ -34,7 +34,7 @@ final class FoodRepositoryTests: XCTestCase {
             do {
                 try foodListViewModel.fetchFoodList()
                 
-                guard let actualOutput = foodListViewModel.foodList?.count else { return }
+                let actualOutput = foodListViewModel.foodList.count
                 let expectedOutput = try await CoreDataManager.shared.getFoods().count
                 XCTAssertEqual(actualOutput, expectedOutput)
             } catch {
@@ -53,10 +53,10 @@ final class FoodRepositoryTests: XCTestCase {
                 foodListViewModel.quantity = "10"
                 foodListViewModel.unit = "tps"
                 foodListViewModel.barcode = "1234"
-                let originalListCount = foodListViewModel.foodList!.count
+                let originalListCount = foodListViewModel.foodList.count
                 try foodListViewModel.addNewFood()
                 let expectedOutput = originalListCount + 1
-                let actualOutput = foodListViewModel.foodList!.count
+                let actualOutput = foodListViewModel.foodList.count
                 XCTAssertEqual(actualOutput, expectedOutput)
             } catch {
                 print(error)
@@ -76,11 +76,11 @@ final class FoodRepositoryTests: XCTestCase {
                                         purchasedDate: Date.now,
                                         quantity: 10,
                                         unit: "tps")
-                foodListViewModel.foodList?.append(food)
+                foodListViewModel.foodList.append(food)
                 try await CoreDataManager.shared.addFood(food: food)
-                let originalOutput = foodListViewModel.foodList!.count
+                let originalOutput = foodListViewModel.foodList.count
                 try foodListViewModel.deleteFoodItem(food: food)
-                let actualOutput = foodListViewModel.foodList!.count
+                let actualOutput = foodListViewModel.foodList.count
                 let expectOutput = originalOutput - 1
                 XCTAssertEqual(actualOutput, expectOutput)
             } catch {
@@ -101,7 +101,7 @@ final class FoodRepositoryTests: XCTestCase {
                                         purchasedDate: Date.now,
                                         quantity: 10,
                                         unit: "tps")
-                foodListViewModel.foodList?.append(food)
+                foodListViewModel.foodList.append(food)
                 try await CoreDataManager.shared.addFood(food: food)
                 food.name = "TestItem"
                 foodListViewModel.foodItem = food

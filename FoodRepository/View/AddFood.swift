@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AddFood: View {
     @ObservedObject var foodListViewModel: FoodListViewModel
-    @State var isScanning = false
+//    @State var isScanning = false
     var body: some View {
         VStack(spacing: 20) {
             HStack(alignment: .top) {
@@ -21,9 +21,9 @@ struct AddFood: View {
                     .padding(.bottom, 15)
                 
                 Button(action: {
-                    isScanning.toggle()
+                    foodListViewModel.isScanning.toggle()
                 }, label: {
-                    Image(systemName: isScanning ? "xmark": "barcode.viewfinder")
+                    Image(systemName: foodListViewModel.isScanning ? "xmark": "barcode.viewfinder")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 20, height: 20)
@@ -42,10 +42,10 @@ struct AddFood: View {
                 })
             }
             
-            if isScanning {
+            if foodListViewModel.isScanning {
                 VStack {
                     Spacer()
-                    BarcodeScannerView()
+                    BarcodeScannerView(delegate: foodListViewModel)
                         .clipShape(.rect(cornerRadius: 12))
                         .frame(height: 150)
                         .padding(.horizontal, 10)
@@ -54,7 +54,7 @@ struct AddFood: View {
             } else {
                 VStack(spacing: 15) {
                     AddFoodTextField(inputText: $foodListViewModel.name, promptText: "Food name")
-//                    AddFoodTextField(inputText: $expirationDate, promptText: "Expiration Date")
+                    //                    AddFoodTextField(inputText: $expirationDate, promptText: "Expiration Date")
                     
                     HStack(spacing: 12){
                         AddFoodTextField(inputText: $foodListViewModel.quantity, promptText: "Quantity")
@@ -76,7 +76,6 @@ struct AddFood: View {
                             } else {
                                 try foodListViewModel.addNewFood()
                             }
-                            
                             foodListViewModel.isSheetPresented.toggle()
                         } catch {
                             print(error)
@@ -97,11 +96,6 @@ struct AddFood: View {
                     }
                 }
             }
-            
-            
-            
-            
-            
         }
         .padding(.top, 30)
         .padding(.bottom, 10)

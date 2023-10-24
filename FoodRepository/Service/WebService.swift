@@ -19,6 +19,11 @@ struct WebService: APIImplement {
             guard urlResponse.statusCode >= 200 && urlResponse.statusCode < 300 else { throw NetworkError.invalidResponseError }
             let jsonDecoder = JSONDecoder()
             jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+            do {
+                let result = try jsonDecoder.decode(T.self, from: data)
+            } catch {
+                print("decoder: \(error)")
+            }
             guard let result = try? jsonDecoder.decode(T.self, from: data) else { throw NetworkError.failedToDecodeResponse }
             return result
         } catch NetworkError.invalidUrl {

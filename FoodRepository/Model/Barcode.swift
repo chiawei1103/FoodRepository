@@ -18,7 +18,7 @@ struct Barcode: Decodable {
     let success: Bool
     let timestamp: Int
     let images: String?
-    let metanutrition: Metanutrition
+//    let metanutrition: Metanutrition
 }
 
 // MARK: - Metanutrition

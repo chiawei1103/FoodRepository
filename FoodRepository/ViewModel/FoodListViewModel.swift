@@ -18,6 +18,7 @@ class FoodListViewModel: ObservableObject, BarcodeLookUpDelegate {
     @Published var foodList: [FoodCoreData] = []
     @Published var isSheetPresented = false
     @Published var isEditing = false
+    @Published var isScanning = false
     
     @Published var foodItem: FoodCoreData?
     @Published var name: String = ""
@@ -91,7 +92,7 @@ class FoodListViewModel: ObservableObject, BarcodeLookUpDelegate {
     func barcodeLookup(barcode: String) {
         print("barcode: \(barcode)")
         Task {
-            let networkRequest = NetworkRequest(baseUrl: Constants.baseBarcodeUrl, path: "", params: [Constants.apiKey], type: .GET, headers: [:])
+            let networkRequest = NetworkRequest(baseUrl: "\(Constants.baseBarcodeUrl)\(barcode)", path: "", params: [Constants.apiKey], type: .GET, headers: [:])
             do {
                 let result = try await webService.fetchData(request: networkRequest, modelType: Barcode.self)
                 
@@ -99,11 +100,14 @@ class FoodListViewModel: ObservableObject, BarcodeLookUpDelegate {
                     if result.category == "Food" {
                         self.name = result.title
                         self.barcode = result.barcode
+                        self.isScanning = false
                         self.viewState = .loaded
                     } else {
+                        self.isScanning = false
                         self.viewState = .error
                     }
                 } else {
+                    self.isScanning = false
                     self.viewState = .error
                 }
             } catch {

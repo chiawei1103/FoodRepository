@@ -13,4 +13,5 @@ struct Constants {
     static let baseIngredientRecipeUrl = "https://www.themealdb.com/api/json/v1/1/filter.php"
     static let baseBarcodeUrl = "https://api.upcdatabase.org/product/"
     static let apiKey = URLQueryItem(name: "apikey", value: "THISISALIVEDEMOAPIKEY19651D54X47")
+    
 }
